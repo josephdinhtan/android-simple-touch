@@ -15,6 +15,7 @@ fun StUiTheme(
 ) {
     val view = LocalView.current
     LaunchedEffect(isDarkTheme) {
+        if(view.context !is Activity) return@LaunchedEffect
         val window = (view.context as Activity).window
         WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !isDarkTheme
     }
