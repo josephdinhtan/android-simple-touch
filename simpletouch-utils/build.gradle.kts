@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
-//    id("maven-publish")
+    id("maven-publish")
 }
 
 android {
@@ -42,19 +42,19 @@ android {
     }
 }
 
-//publishing {
-//    publications {
-//        register<MavenPublication>("release") {
-//            groupId = "com.jddev.simpletouch"
-//            artifactId = "simpletouch-utils"
-//            version = "1.0.0"
-//
-//            afterEvaluate {
-//                from(components["release"])
-//            }
-//        }
-//    }
-//}
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "com.jddev.simpletouch"
+            artifactId = "simpletouch-utils"
+            version = "1.0.0"
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
+}
 
 dependencies {
 //    implementation(project(":simpletouch-ui"))

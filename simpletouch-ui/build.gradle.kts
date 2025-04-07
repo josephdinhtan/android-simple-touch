@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-//    id("maven-publish")
+    id("maven-publish")
 }
 
 android {
@@ -40,19 +40,19 @@ android {
     }
 }
 
-//publishing {
-//    publications {
-//        register<MavenPublication>("release") {
-//            groupId = "com.jddev.simpletouch"
-//            artifactId = "simpletouch-ui"
-//            version = "1.0.0"
-//
-//            afterEvaluate {
-//                from(components["release"])
-//            }
-//        }
-//    }
-//}
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "com.jddev.simpletouch"
+            artifactId = "simpletouch-ui"
+            version = "1.0.0"
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
+}
 
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
