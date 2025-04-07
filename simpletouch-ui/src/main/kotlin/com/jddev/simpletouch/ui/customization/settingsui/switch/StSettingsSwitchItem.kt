@@ -2,6 +2,7 @@ package com.jddev.simpletouch.ui.customization.settingsui.switch
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -72,33 +73,38 @@ fun StSettingsSwitchItem(
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @StUiPreview
 private fun PreviewEnable() {
     var isChecked by remember { mutableStateOf(false) }
     StUiPreviewWrapper {
-        StSettingsSwitchItem(
-            leadingImageVector = Icons.Default.DarkMode,
-            title = "Dark mode",
-            subTitle = "Enable dark mode",
-            checked = isChecked,
-            onCheckedChange = { isChecked = !isChecked },
-        )
+        StSettingsUi {
+            item {
+                StSettingsSwitchItem(
+                    leadingImageVector = Icons.Default.DarkMode,
+                    title = "Dark mode",
+                    subTitle = "Enable dark mode",
+                    checked = isChecked,
+                    onCheckedChange = { isChecked = !isChecked },
+                )
 
-        StSettingsSwitchItem(
-            leadingImageVector = Icons.Default.DarkMode,
-            title = "Title with long text and overflow of view",
-            subTitle = "Enable dark mode and long text with overflow of view",
-            checked = isChecked,
-            onCheckedChange = { isChecked = !isChecked },
-        )
+                StSettingsSwitchItem(
+                    leadingImageVector = Icons.Default.DarkMode,
+                    title = "Title with long text and overflow of view",
+                    subTitle = "Enable dark mode and long text with overflow of view",
+                    checked = isChecked,
+                    onCheckedChange = { isChecked = !isChecked },
+                )
 
-        StSettingsSwitchItem(
-            title = "Dark mode",
-            subTitle = "Enable dark mode",
-            checked = isChecked,
-            enabled = false,
-            onCheckedChange = { isChecked = !isChecked },
-        )
+                StSettingsSwitchItem(
+                    title = "Dark mode",
+                    subTitle = "Enable dark mode",
+                    checked = isChecked,
+                    enabled = false,
+                    onCheckedChange = { isChecked = !isChecked },
+                )
+            }
+        }
     }
 }

@@ -19,17 +19,33 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.jddev.simpletouch.ui.settings.theme.AppThemeMode
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
 import com.jddev.simpletouch.ui.customization.settingsui.group.StSettingsGroup
 import com.jddev.simpletouch.ui.customization.settingsui.navigation.StSettingsNavigateItem
+import com.jddev.simpletouch.ui.foundation.StUiScaffold
 import com.jddev.simpletouch.ui.foundation.dialog.StUiEmptyDialog
 import com.jddev.simpletouch.ui.foundation.topappbar.StUiLargeTopAppBar
 import com.jddev.simpletouch.ui.foundation.topappbar.stUiLargeTopAppbarScrollBehavior
 
+@Composable
+fun SettingsRoute(
+    settingsViewModel: SettingsViewModel = hiltViewModel(),
+    appSettings: AppSettings,
+    onBack: () -> Unit,
+    navigateToThemeMode: () -> Unit,
+) {
+    SettingsScreen(
+        appSettings = appSettings,
+        navigateToThemeMode = navigateToThemeMode,
+        onBack = onBack,
+    )
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(
+private fun SettingsScreen(
     modifier: Modifier = Modifier,
     appSettings: AppSettings,
     onBack: () -> Unit,
@@ -40,7 +56,7 @@ fun SettingsScreen(
 
     var showUiStyleDialog by remember { mutableStateOf(false) }
 
-    Scaffold(
+    StUiScaffold(
         modifier = modifier,
         topBar = {
             StUiLargeTopAppBar(

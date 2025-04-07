@@ -14,3 +14,8 @@ fun stUiEnterAlwaysScrollBehavior() =
 @Composable
 fun stUiLargeTopAppbarScrollBehavior() =
     TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun stUiPinnedScrollBehavior() =
+    TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())

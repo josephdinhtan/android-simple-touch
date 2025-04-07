@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -26,9 +28,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.jddev.simpletouch.ui.foundation.StUiSimpleScaffold
+import com.jddev.simpletouch.ui.foundation.StUiScaffold
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ShareViewModelMainScreen(
     viewModel: ShareViewModelViewModel,
@@ -37,64 +38,69 @@ fun ShareViewModelMainScreen(
     navigateToNextLevel: () -> Unit,
 ) {
     val countValue = viewModel.count.collectAsState()
-    StUiSimpleScaffold(
+    StUiScaffold(
         title = if (level == 0) "Share ViewModel" else "Share ViewModel level $level",
         onBack = onBack,
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            modifier = Modifier
+                .padding(it)
+                .verticalScroll(rememberScrollState())
         ) {
-            Spacer(Modifier.height(32.dp))
-            Text("Count value")
-            Spacer(Modifier.height(32.dp))
-            AnimatedContent(
-                modifier = Modifier.padding(16.dp),
-                targetState = countValue.value,
-                transitionSpec = {
-                    // Compare the incoming number with the previous number.
-                    if (targetState > initialState) {
-                        slideInVertically { height -> height } + fadeIn() togetherWith
-                                slideOutVertically { height -> -height } + fadeOut()
-                    } else {
-                        slideInVertically { height -> -height } + fadeIn() togetherWith
-                                slideOutVertically { height -> height } + fadeOut()
-                    }.using(
-                        SizeTransform(clip = false)
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Spacer(Modifier.height(32.dp))
+                Text("Count value")
+                Spacer(Modifier.height(32.dp))
+                AnimatedContent(
+                    modifier = Modifier.padding(16.dp),
+                    targetState = countValue.value,
+                    transitionSpec = {
+                        // Compare the incoming number with the previous number.
+                        if (targetState > initialState) {
+                            slideInVertically { height -> height } + fadeIn() togetherWith
+                                    slideOutVertically { height -> -height } + fadeOut()
+                        } else {
+                            slideInVertically { height -> -height } + fadeIn() togetherWith
+                                    slideOutVertically { height -> height } + fadeOut()
+                        }.using(
+                            SizeTransform(clip = false)
+                        )
+                    }, label = "animated content"
+                ) { targetCount ->
+                    Text(
+                        text = "$targetCount",
+                        style = MaterialTheme.typography.displayLarge,
+                        textAlign = TextAlign.Center
                     )
-                }, label = "animated content"
-            ) { targetCount ->
-                Text(
-                    text = "$targetCount",
-                    style = MaterialTheme.typography.displayLarge,
-                    textAlign = TextAlign.Center
+                }
+                Spacer(Modifier.height(16.dp))
+            }
+            ActionButton(
+                onClick = { viewModel.increaseCount() },
+                title = "Increment"
+            )
+            ActionButton(
+                onClick = { viewModel.decreaseCount() },
+                color = MaterialTheme.colorScheme.secondary,
+                title = "Decrement"
+            )
+            Spacer(Modifier.height(16.dp))
+            if (level < 2) {
+                HorizontalDivider()
+                Spacer(Modifier.height(16.dp))
+                ActionButton(
+                    onClick = navigateToNextLevel,
+                    color = MaterialTheme.colorScheme.tertiary,
+                    title = "Navigate to level ${level + 1}"
                 )
             }
-            Spacer(Modifier.height(16.dp))
-        }
-        ActionButton(
-            onClick = { viewModel.increaseCount() },
-            title = "Increment"
-        )
-        ActionButton(
-            onClick = { viewModel.decreaseCount() },
-            color = MaterialTheme.colorScheme.secondary,
-            title = "Decrement"
-        )
-        Spacer(Modifier.height(16.dp))
-        if (level < 2) {
-            HorizontalDivider()
-            Spacer(Modifier.height(16.dp))
-            ActionButton(
-                onClick = navigateToNextLevel,
-                color = MaterialTheme.colorScheme.tertiary,
-                title = "Navigate to level ${level + 1}"
-            )
         }
     }
 }
-
 
 
 @Composable

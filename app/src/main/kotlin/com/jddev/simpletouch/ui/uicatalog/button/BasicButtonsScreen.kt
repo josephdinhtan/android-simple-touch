@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
 import com.jddev.simpletouch.ui.customization.settingsui.group.StSettingsGroup
-import com.jddev.simpletouch.ui.foundation.StUiSimpleScaffold
+import com.jddev.simpletouch.ui.foundation.StUiScaffold
 import com.jddev.simpletouch.ui.foundation.StUiSwitch
 import com.jddev.simpletouch.ui.foundation.topappbar.stUiLargeTopAppbarScrollBehavior
 import com.jddev.simpletouch.ui.utils.StUiPreview
@@ -31,11 +31,14 @@ fun BasicButtonsScreen(
     onBack: () -> Unit,
 ) {
     var switchState by remember { mutableStateOf(false) }
-    StUiSimpleScaffold(
+    StUiScaffold(
         title = "Buttons",
         onBack = onBack
     ) {
-        StSettingsUi(scrollBehavior = stUiLargeTopAppbarScrollBehavior()) {
+        StSettingsUi(
+            modifier = Modifier.padding(it),
+            scrollBehavior = stUiLargeTopAppbarScrollBehavior()
+        ) {
             StSettingsGroup {
                 ButtonListItem(
                     title = "Fill button",
@@ -52,7 +55,9 @@ fun BasicButtonsScreen(
                 ButtonListItem(
                     title = "Switch",
                     content = {
-                        StUiSwitch(checked = switchState, onCheckedChange = { switchState = it })
+                        StUiSwitch(
+                            checked = switchState,
+                            onCheckedChange = { switchState = it })
                     }
                 )
             }
@@ -66,7 +71,9 @@ private fun ButtonListItem(
     content: @Composable () -> Unit
 ) {
     Row(
-        Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+        Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

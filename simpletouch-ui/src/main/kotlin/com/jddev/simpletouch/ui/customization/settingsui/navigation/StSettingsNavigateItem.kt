@@ -65,36 +65,38 @@ fun StSettingsNavigateItem(
 private fun Preview() {
     StUiPreviewWrapper {
         StSettingsUi {
-            StSettingsNavigateItem(
-                leadingImageVector = Icons.Default.Settings,
-                title = "Enable",
-                subTitle = "Can navigate",
-                enabled = true,
-                onClick = { },
-            )
+            item {
+                StSettingsNavigateItem(
+                    leadingImageVector = Icons.Default.Settings,
+                    title = "Enable",
+                    subTitle = "Can navigate",
+                    enabled = true,
+                    onClick = { },
+                )
 
-            StSettingsNavigateItem(
-                leadingImageVector = Icons.Default.Language,
-                title = "Enable",
-                subTitle = "Can not navigate",
-                enabled = true,
-                onClick = null,
-            )
+                StSettingsNavigateItem(
+                    leadingImageVector = Icons.Default.Language,
+                    title = "Enable",
+                    subTitle = "Can not navigate",
+                    enabled = true,
+                    onClick = null,
+                )
 
-            StSettingsNavigateItem(
-                leadingImageVector = Icons.Default.DateRange,
-                title = "Disable",
-                subTitle = "Can not navigate",
-                enabled = false,
-                onClick = { },
-            )
+                StSettingsNavigateItem(
+                    leadingImageVector = Icons.Default.DateRange,
+                    title = "Disable",
+                    subTitle = "Can not navigate",
+                    enabled = false,
+                    onClick = { },
+                )
 
-            StSettingsNavigateItem(
-                title = "Disable",
-                subTitle = "Can not navigate",
-                enabled = false,
-                onClick = { },
-            )
+                StSettingsNavigateItem(
+                    title = "Disable",
+                    subTitle = "Can not navigate",
+                    enabled = false,
+                    onClick = { },
+                )
+            }
         }
     }
 }

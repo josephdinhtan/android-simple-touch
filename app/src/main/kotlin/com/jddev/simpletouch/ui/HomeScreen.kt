@@ -20,6 +20,7 @@ import com.jddev.simpletouch.R
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
 import com.jddev.simpletouch.ui.customization.settingsui.group.StSettingsGroup
 import com.jddev.simpletouch.ui.customization.settingsui.navigation.StSettingsNavigateItem
+import com.jddev.simpletouch.ui.foundation.StUiScaffold
 import com.jddev.simpletouch.ui.foundation.topappbar.StUiLargeTopAppBar
 import com.jddev.simpletouch.ui.foundation.topappbar.stUiLargeTopAppbarScrollBehavior
 import com.jddev.simpletouch.ui.utils.StUiPreview
@@ -37,7 +38,7 @@ fun HomeScreen(
     navigateToShareViewModel: () -> Unit,
 ) {
     val scrollBehavior = stUiLargeTopAppbarScrollBehavior()
-    Scaffold(
+    StUiScaffold(
         modifier = modifier,
         topBar = {
             StUiLargeTopAppBar(
@@ -54,8 +55,8 @@ fun HomeScreen(
     ) { innerPadding ->
         StSettingsUi(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
+                .padding(innerPadding)
+                .fillMaxSize(),
             scrollBehavior = scrollBehavior,
         ) {
             StSettingsGroup(

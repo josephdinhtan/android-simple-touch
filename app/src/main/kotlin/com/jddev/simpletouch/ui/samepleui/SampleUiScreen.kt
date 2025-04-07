@@ -1,13 +1,15 @@
 package com.jddev.simpletouch.ui.samepleui
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
 import com.jddev.simpletouch.ui.customization.settingsui.group.StSettingsGroup
 import com.jddev.simpletouch.ui.customization.settingsui.navigation.StSettingsNavigateItem
-import com.jddev.simpletouch.ui.foundation.StUiSimpleScaffold
+import com.jddev.simpletouch.ui.foundation.StUiScaffold
+import com.jddev.simpletouch.ui.foundation.topappbar.stUiPinnedScrollBehavior
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -18,12 +20,12 @@ fun SampleUiScreen(
     navigateTo: (String) -> Unit,
     onBack: () -> Unit
 ) {
-    StUiSimpleScaffold(
+    StUiScaffold(
         title = "Sample UI",
         onBack = onBack,
     ) {
         StSettingsUi(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.padding(it).fillMaxSize(),
         ) {
             StSettingsGroup {
                 StSettingsNavigateItem(

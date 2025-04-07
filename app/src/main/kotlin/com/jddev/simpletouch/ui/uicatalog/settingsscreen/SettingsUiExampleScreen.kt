@@ -22,6 +22,7 @@ import com.jddev.simpletouch.ui.customization.settingsui.checkbox.StSettingsChec
 import com.jddev.simpletouch.ui.customization.settingsui.group.StSettingsGroup
 import com.jddev.simpletouch.ui.customization.settingsui.navigation.StSettingsNavigateItem
 import com.jddev.simpletouch.ui.customization.settingsui.switch.StSettingsSwitchItem
+import com.jddev.simpletouch.ui.foundation.StUiScaffold
 import com.jddev.simpletouch.ui.foundation.topappbar.StUiLargeTopAppBar
 import com.jddev.simpletouch.ui.foundation.topappbar.stUiLargeTopAppbarScrollBehavior
 import com.jddev.simpletouch.ui.utils.StUiPreview
@@ -34,7 +35,7 @@ fun SettingsUiExampleScreen(
 ) {
     val scrollBehavior = stUiLargeTopAppbarScrollBehavior()
     var toggleChecked by remember { mutableStateOf(true) }
-    Scaffold(
+    StUiScaffold(
         topBar = {
             StUiLargeTopAppBar(
                 scrollBehavior = scrollBehavior, title = "Material Settings", onBack = onBack

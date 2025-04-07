@@ -2,6 +2,7 @@ package com.jddev.simpletouch.ui.samepleui.floatingwindow
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,7 +15,7 @@ import androidx.compose.ui.Modifier
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
 import com.jddev.simpletouch.ui.customization.settingsui.group.StSettingsGroup
 import com.jddev.simpletouch.ui.customization.settingsui.switch.StSettingsSwitchItem
-import com.jddev.simpletouch.ui.foundation.StUiSimpleScaffold
+import com.jddev.simpletouch.ui.foundation.StUiScaffold
 import com.jddev.simpletouch.ui.utils.StUiPreview
 import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 
@@ -28,15 +29,21 @@ fun FloatingWindowScreen(
     showBubbleEnableChange: (Boolean) -> Unit,
     onBack: () -> Unit,
 ) {
-    StUiSimpleScaffold(
+    StUiScaffold(
         title = "Floating windows", onBack = onBack
     ) {
         if (!hasOverlayPermission) {
-            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Box(Modifier
+                .padding(it)
+                .fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text("Overlay permission is not granted")
             }
         } else {
-            StSettingsUi {
+            StSettingsUi(
+                modifier = Modifier
+                    .padding(it)
+                    .fillMaxSize()
+            ) {
                 StSettingsGroup {
                     StSettingsSwitchItem(
                         title = "Start Service",

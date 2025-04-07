@@ -153,6 +153,13 @@ private fun Preview() {
             overlineContent = { Text("Overline Content") },
         )
 
+        ListItem(
+            headlineContent = { Text("Headline Content") },
+            leadingContent = { Text("Leading") },
+            supportingContent = { Text("Supporting content") },
+            trailingContent = { Text("Trailing Content") },
+        )
+
         StUiListItemBase(
             headlineContent = { Text("Headline Content") },
             leadingContent = { Text("Leading") },

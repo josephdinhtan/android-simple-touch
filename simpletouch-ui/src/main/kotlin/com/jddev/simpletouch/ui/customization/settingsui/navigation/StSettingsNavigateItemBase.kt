@@ -37,13 +37,15 @@ internal fun StSettingsNavigateItemBase(
 private fun Preview() {
     StUiPreviewWrapper {
         StSettingsUi {
-            StSettingsNavigateItemBase(
-                leadingContent = { Icon(Icons.Default.Settings, null) },
-                title = "Enable",
-                subTitle = "Can navigate",
-                enabled = true,
-                onClick = { },
-            )
+            item {
+                StSettingsNavigateItemBase(
+                    leadingContent = { Icon(Icons.Default.Settings, null) },
+                    title = "Enable",
+                    subTitle = "Can navigate",
+                    enabled = true,
+                    onClick = { },
+                )
+            }
         }
     }
 }

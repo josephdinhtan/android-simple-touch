@@ -26,12 +26,6 @@ import com.jddev.simpletouch.ui.foundation.topappbar.stUiLargeTopAppbarScrollBeh
 import com.jddev.simpletouch.ui.utils.StUiPreview
 import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 
-private val headerStyle
-    @Composable get() = MaterialTheme.typography.titleMedium.copy(
-        color = Color(0xFF5E7889),
-        fontWeight = FontWeight.W600
-    )
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FitbitSettingsScreen(
@@ -45,13 +39,17 @@ fun FitbitSettingsScreen(
             )
         },
     ) {
+        val fitbitHeaderStyle = MaterialTheme.typography.titleMedium.copy(
+            color = Color(0xFF5E7889),
+            fontWeight = FontWeight.W600
+        )
         StSettingsUi(
             modifier = Modifier.padding(it),
             scrollBehavior = scrollBehavior,
         ) {
             StSettingsGroup(
                 header = "Your account",
-                headerTextStyle = headerStyle,
+                headerTextStyle = fitbitHeaderStyle,
             ) {
                 StSettingsNavigateItem(leadingImageVector = Icons.Outlined.Fitbit,
                     title = "Fitbit Premium",
@@ -60,7 +58,7 @@ fun FitbitSettingsScreen(
             }
             StSettingsGroup(
                 header = "App settings",
-                headerTextStyle = headerStyle
+                headerTextStyle = fitbitHeaderStyle
             ) {
                 StSettingsNavigateItem(leadingImageVector = Icons.Default.Apps,
                     title = "Date, time & units",
@@ -77,7 +75,7 @@ fun FitbitSettingsScreen(
             }
             StSettingsGroup(
                 header = "Preferences",
-                headerTextStyle = headerStyle,
+                headerTextStyle = fitbitHeaderStyle,
             ) {
                 StSettingsNavigateItem(leadingImageVector = Icons.Outlined.Accessibility,
                     title = "Activity",

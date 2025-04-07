@@ -3,12 +3,15 @@ package com.jddev.simpletouch.ui.samepleui.intelligentcharging
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -25,7 +28,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.jddev.simpletouch.R
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
+import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUiBase
 import com.jddev.simpletouch.ui.customization.settingsui.group.StSettingsGroup
+import com.jddev.simpletouch.ui.customization.settingsui.group.StSettingsGroupBase
 import com.jddev.simpletouch.ui.customization.settingsui.switch.StSettingsSwitchItem
 import com.jddev.simpletouch.ui.foundation.topappbar.StUiTopAppBar
 import com.jddev.simpletouch.ui.utils.StUiPreview
@@ -47,87 +52,85 @@ fun IntelligentChargingScreen(
             ), onBack = onBack
         )
     }) { innerPadding ->
-        LazyColumn(
-            modifier = Modifier.padding(innerPadding)
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
         ) {
-            item {
-                Image(
+            Image(
+                modifier = Modifier
+                    .wrapContentHeight()
+                    .fillMaxWidth(),
+                painter = painterResource(R.drawable.img_intelligentcharge),
+                contentScale = ContentScale.FillWidth,
+                contentDescription = null
+            )
+            Box {
+                Box(
                     modifier = Modifier
-                        .wrapContentHeight()
-                        .fillMaxWidth(),
-                    painter = painterResource(R.drawable.img_intelligentcharge),
-                    contentScale = ContentScale.FillWidth,
-                    contentDescription = null
-                )
-                Box {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(72.dp)
-                            .background(
-                                brush = Brush.verticalGradient(
-                                    colors = listOf(
-                                        MaterialTheme.colorScheme.primaryContainer,
-                                        MaterialTheme.colorScheme.background
-                                    )
+                        .fillMaxWidth()
+                        .height(72.dp)
+                        .background(
+                            brush = Brush.verticalGradient(
+                                colors = listOf(
+                                    MaterialTheme.colorScheme.primaryContainer,
+                                    MaterialTheme.colorScheme.background
                                 )
                             )
-                    )
-                    Text(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                            .padding(top = 20.dp),
-                        style = MaterialTheme.typography.labelLarge,
-                        text = "Extend battery life with smart auto-charge control and direct power supply settings"
-                    )
-                }
-                Spacer(modifier = Modifier.height(20.dp))
-                Text(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    style = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.primary),
-                    text = "Additional settings to reduce battery load."
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                StSettingsUi(
-                    modifier = Modifier.wrapContentHeight()
-                ) {
-                    StSettingsGroup {
-                        StSettingsSwitchItem(
-                            title = "Charge up to the specified capacity",
-                            subTitle = "Switch to direct power supply when the battery is about 90% charged",
-                            checked = chargeUpToCapacityChecked,
-                            onCheckedChange = chargeUpToCapacityChange
                         )
-                        StSettingsSwitchItem(
-                            title = "Charge only when screen is off",
-                            subTitle = "Charge the battery while the screen is off and switch to direct power supply when the screen is on",
-                            checked = chargeOnlyDisplayChecked,
-                            onCheckedChange = chargeOnlyDisplayChange
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.height(20.dp))
-                Icon(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    imageVector = Icons.Outlined.Info,
-                    contentDescription = "Infomation"
                 )
-                Spacer(modifier = Modifier.height(20.dp))
                 Text(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-
-
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(top = 20.dp),
                     style = MaterialTheme.typography.labelLarge,
-                    text = "Direct power supply is a method that provides power directly from the charger without charging the battery.   This helps reduce the strain on the battery caused by heat or charging near full capacity."
+                    text = "Extend battery life with smart auto-charge control and direct power supply settings"
                 )
-                Spacer(modifier = Modifier.height(20.dp))
-                Text(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    style = MaterialTheme.typography.labelLarge,
-                    text = "Regardless of the direct power supply settings, the battery may be charged to ensure stable operation."
-                )
-                Spacer(modifier = Modifier.height(8.dp))
             }
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                style = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.primary),
+                text = "Additional settings to reduce battery load."
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            StSettingsUiBase {
+                StSettingsGroupBase {
+                    StSettingsSwitchItem(
+                        title = "Charge up to the specified capacity",
+                        subTitle = "Switch to direct power supply when the battery is about 90% charged",
+                        checked = chargeUpToCapacityChecked,
+                        onCheckedChange = chargeUpToCapacityChange
+                    )
+                    StSettingsSwitchItem(
+                        title = "Charge only when screen is off",
+                        subTitle = "Charge the battery while the screen is off and switch to direct power supply when the screen is on",
+                        checked = chargeOnlyDisplayChecked,
+                        onCheckedChange = chargeOnlyDisplayChange
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            Icon(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                imageVector = Icons.Outlined.Info,
+                contentDescription = "Infomation"
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(
+                modifier = Modifier.padding(horizontal = 16.dp),
+
+
+                style = MaterialTheme.typography.labelLarge,
+                text = "Direct power supply is a method that provides power directly from the charger without charging the battery.   This helps reduce the strain on the battery caused by heat or charging near full capacity."
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                style = MaterialTheme.typography.labelLarge,
+                text = "Regardless of the direct power supply settings, the battery may be charged to ensure stable operation."
+            )
+            Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }

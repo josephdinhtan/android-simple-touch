@@ -58,12 +58,14 @@ fun StSettingsItemBase(
 private fun Preview() {
     StUiPreviewWrapper {
         StSettingsUi {
-            StSettingsItemBase(
-                title = "This is the Title",
-                subTitle = "This is the Subtitle",
-                trailingContent = { Icon(Icons.AutoMirrored.Filled.NavigateNext, "trailing") },
-                onClick = {},
-            )
+            item {
+                StSettingsItemBase(
+                    title = "This is the Title",
+                    subTitle = "This is the Subtitle",
+                    trailingContent = { Icon(Icons.AutoMirrored.Filled.NavigateNext, "trailing") },
+                    onClick = {},
+                )
+            }
         }
     }
 }

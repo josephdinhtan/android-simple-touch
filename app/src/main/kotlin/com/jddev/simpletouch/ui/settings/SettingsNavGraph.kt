@@ -20,8 +20,9 @@ fun NavGraphBuilder.settingsNavGraph(
         composable(
             route = "settings_nav_home_route",
         ) {
-            it.sharedViewModel<SettingsViewModel>(navController)
+            val viewModel = it.sharedViewModel<SettingsViewModel>(navController)
             SettingsRoute(
+                settingsViewModel = viewModel,
                 appSettings = appSettings,
                 onBack = {
                     navController.popBackStack()
@@ -35,14 +36,16 @@ fun NavGraphBuilder.settingsNavGraph(
         composable(
             route = "settings_nav_theme_mode_route",
         ) {
-            it.sharedViewModel<SettingsViewModel>(navController)
-            SettingsThemeModeScreen(appThemeMode = appSettings.appThemeMode.collectAsState().value,
+            val viewModel = it.sharedViewModel<SettingsViewModel>(navController)
+            SettingsThemeModeScreen(
+                appThemeMode = appSettings.appThemeMode.collectAsState().value,
                 onBack = {
                     navController.popBackStack()
                 },
                 onThemeChange = { isDarkMode ->
                     appSettings.appThemeMode.value = isDarkMode
-                })
+                }
+            )
         }
     }
 }

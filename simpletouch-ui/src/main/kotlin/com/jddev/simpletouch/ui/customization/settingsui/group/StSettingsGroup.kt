@@ -1,9 +1,9 @@
 package com.jddev.simpletouch.ui.customization.settingsui.group
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Headphones
 import androidx.compose.material.icons.filled.Home
@@ -32,8 +32,37 @@ import com.jddev.simpletouch.ui.customization.settingsui.switch.StSettingsSwitch
 import com.jddev.simpletouch.ui.utils.StUiPreview
 import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 
+fun LazyListScope.StSettingsGroup(
+    modifier: Modifier = Modifier,
+    header: String? = null,
+    headerTextStyle: TextStyle? = null,
+    containerColor: Color = Color.Transparent,
+    shape: Shape? = null,
+    content: @Composable () -> Unit,
+) {
+    item {
+        val defaultHeaderTextStyle = headerTextStyle ?: MaterialTheme.typography.titleMedium.copy(
+            color = MaterialTheme.colorScheme.secondary,
+            fontWeight = FontWeight.W600
+        )
+        val defaultShape = shape ?: MaterialTheme.shapes.small
+
+        StSettingsGroupBase(
+            modifier = modifier,
+            header = header,
+            headerTextStyle = defaultHeaderTextStyle,
+            containerColor = containerColor,
+            shape = defaultShape,
+            content = content,
+        )
+    }
+}
+
+/**
+ * Base function which is normal Composable function
+ */
 @Composable
-fun StSettingsGroup(
+fun StSettingsGroupBase(
     modifier: Modifier = Modifier,
     header: String? = null,
     headerTextStyle: TextStyle = MaterialTheme.typography.titleMedium.copy(
@@ -42,10 +71,12 @@ fun StSettingsGroup(
     ),
     containerColor: Color = Color.Transparent,
     shape: Shape = MaterialTheme.shapes.small,
-    content: @Composable ColumnScope.() -> Unit,
+    content: @Composable () -> Unit,
 ) {
     Column(
-        modifier = modifier.fillMaxWidth().padding(vertical = 4.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp),
     ) {
         header?.let {
             Text(
@@ -104,29 +135,29 @@ private fun Preview() {
                     )
                 },
             )
+            StSettingsGroup(
+                header = "Group Title - No Icon",
+                content = {
+                    StSettingsCheckBoxItem(
+                        title = "Check Box",
+                        leadingImageVector = Icons.Outlined.ChatBubbleOutline,
+                        subTitle = subTitle,
+                        checked = checkBoxState,
+                        onCheckedChange = { checkBoxState = it },
+                    )
+                    StSettingsSwitchItem(
+                        title = "Toggle Switch",
+                        subTitle = subTitle,
+                        checked = toggleSwitchState,
+                        onCheckedChange = { toggleSwitchState = it },
+                    )
+                    StSettingsNavigateItem(
+                        title = "Navigate Item",
+                        subTitle = subTitle,
+                        onClick = {},
+                    )
+                },
+            )
         }
-        StSettingsGroup(
-            header = "Group Title - No Icon",
-            content = {
-                StSettingsCheckBoxItem(
-                    title = "Check Box",
-                    leadingImageVector = Icons.Outlined.ChatBubbleOutline,
-                    subTitle = subTitle,
-                    checked = checkBoxState,
-                    onCheckedChange = { checkBoxState = it },
-                )
-                StSettingsSwitchItem(
-                    title = "Toggle Switch",
-                    subTitle = subTitle,
-                    checked = toggleSwitchState,
-                    onCheckedChange = { toggleSwitchState = it },
-                )
-                StSettingsNavigateItem(
-                    title = "Navigate Item",
-                    subTitle = subTitle,
-                    onClick = {},
-                )
-            },
-        )
     }
 }

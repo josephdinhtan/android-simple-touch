@@ -22,6 +22,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.jddev.simpletouch.ui.customization.settingsui.StSettingsUi
 import com.jddev.simpletouch.ui.customization.settingsui.group.StSettingsGroup
+import com.jddev.simpletouch.ui.foundation.StUiScaffold
 import com.jddev.simpletouch.ui.foundation.topappbar.StUiTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,12 +39,10 @@ fun SettingsThemeModeScreen(
     )
     var selectedOption by remember { mutableStateOf(appThemeMode) }
 
-    Scaffold(topBar = {
-        StUiTopAppBar(
-            title = "Theme mode",
-            onBack = onBack,
-        )
-    }) {
+    StUiScaffold(
+        title = "Theme mode",
+        onBack = onBack,
+    ) {
         // Note that Modifier.selectableGroup() is essential to ensure correct accessibility behavior
         StSettingsUi(
             Modifier
@@ -57,16 +56,19 @@ fun SettingsThemeModeScreen(
                             .fillMaxWidth()
                             .height(56.dp)
                             .selectable(
-                                selected = (themeModeOption.second == selectedOption), onClick = {
+                                selected = (themeModeOption.second == selectedOption),
+                                onClick = {
                                     selectedOption = themeModeOption.second
                                     onThemeChange(themeModeOption.second)
-                                }, role = Role.RadioButton
+                                },
+                                role = Role.RadioButton
                             )
                             .padding(horizontal = 16.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         RadioButton(
-                            selected = (themeModeOption.second == selectedOption), onClick = null
+                            selected = (themeModeOption.second == selectedOption),
+                            onClick = null
                         )
                         Text(
                             text = themeModeOption.first,
