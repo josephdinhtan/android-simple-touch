@@ -11,6 +11,7 @@ import com.jddev.simpletouch.ui.theme.standard.StUiStandardTheme
 @Composable
 fun StUiTheme(
     isDarkTheme: Boolean = isSystemInDarkTheme(),
+    useDynamicColors: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val view = LocalView.current
@@ -20,6 +21,8 @@ fun StUiTheme(
         WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !isDarkTheme
     }
     StUiStandardTheme(
-        isDarkTheme = isDarkTheme, content = content
+        isDarkTheme = isDarkTheme,
+        useDynamicColors = useDynamicColors,
+        content = content
     )
 }

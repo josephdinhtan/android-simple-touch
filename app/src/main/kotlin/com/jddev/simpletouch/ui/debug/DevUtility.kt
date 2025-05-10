@@ -1,6 +1,6 @@
 package com.jddev.simpletouch.ui.debug
 
-import com.jddev.simpletouch.utils.di.CoroutineScopeIO
+import com.jddev.simpletouch.utils.coroutine.CoroutineScopeIO
 import com.jddev.simpletouch.utils.logging.LogManager
 import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject

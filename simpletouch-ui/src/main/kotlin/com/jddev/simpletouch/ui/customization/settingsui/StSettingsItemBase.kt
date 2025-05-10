@@ -19,6 +19,7 @@ fun StSettingsItemBase(
     title: String,
     subTitle: String? = null,
     leadingContent: @Composable (() -> Unit)? = null,
+    supportingContent: @Composable (() -> Unit)? = null,
     trailingContent: @Composable (() -> Unit)? = null,
     enabled: Boolean = true,
     onClick: (() -> Unit)? = null,
@@ -33,8 +34,8 @@ fun StSettingsItemBase(
                 modifier = Modifier.alpha(if (enabled) 1f else settingsItemColors.disableAlpha),
             )
         },
-        supportingContent = {
-            subTitle?.let {
+        supportingContent = supportingContent ?: subTitle?.let {
+            {
                 Text(
                     it,
                     style = MaterialTheme.typography.titleMedium.copy(color = settingsItemColors.subTitleColor),
@@ -62,6 +63,15 @@ private fun Preview() {
                 StSettingsItemBase(
                     title = "This is the Title",
                     subTitle = "This is the Subtitle",
+                    trailingContent = { Icon(Icons.AutoMirrored.Filled.NavigateNext, "trailing") },
+                    onClick = {},
+                )
+            }
+            item {
+                StSettingsItemBase(
+                    title = "This is the Title",
+                    subTitle = "This is the Subtitle",
+                    supportingContent = { Text("This is the supporting content") },
                     trailingContent = { Icon(Icons.AutoMirrored.Filled.NavigateNext, "trailing") },
                     onClick = {},
                 )

@@ -1,5 +1,6 @@
-package com.jddev.simpletouch.utils.di
+package com.jddev.simpletouch.utils.timber
 
+import com.jddev.simpletouch.utils.coroutine.CoroutineScopeIO
 import com.jddev.simpletouch.utils.logging.AppTree
 import com.jddev.simpletouch.utils.logging.LogManager
 import dagger.Module

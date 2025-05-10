@@ -3,8 +3,12 @@ package com.jddev.simpletouch.ui.theme.standard
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
+import com.jddev.simpletouch.ui.utils.isCompatibleWithDynamicColors
 
 internal val StandardLightColors = lightColorScheme(
     primary = md_theme_light_primary,
@@ -77,9 +81,23 @@ internal val StandardDarkColors = darkColorScheme(
 @Composable
 fun StUiStandardTheme(
     isDarkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
+    useDynamicColors: Boolean = false,
+    content: @Composable () -> Unit,
 ) {
-    val colorScheme = if (isDarkTheme) StandardDarkColors else StandardLightColors
+    val colorScheme = when {
+        isCompatibleWithDynamicColors() && useDynamicColors -> {
+            if (isDarkTheme) dynamicDarkColorScheme(LocalContext.current)
+            else dynamicLightColorScheme(LocalContext.current)
+        }
+
+        isDarkTheme -> {
+            StandardDarkColors
+        }
+
+        else -> {
+            StandardLightColors
+        }
+    }
     MaterialTheme(
         colorScheme = colorScheme,
         shapes = StUiShapes,

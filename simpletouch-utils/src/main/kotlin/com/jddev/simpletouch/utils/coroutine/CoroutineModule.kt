@@ -1,4 +1,4 @@
-package com.jddev.simpletouch.utils.di
+package com.jddev.simpletouch.utils.coroutine
 
 import dagger.Module
 import dagger.Provides
@@ -43,5 +43,5 @@ object DispatchersModule {
 
     @Provides
     @CoroutineScopeIO
-    fun provideCoroutineIoScope(): CoroutineScope = kotlinx.coroutines.CoroutineScope(SupervisorJob() +  Dispatchers.IO)
+    fun provideCoroutineIoScope(): CoroutineScope = CoroutineScope(SupervisorJob() +  Dispatchers.IO)
 }

@@ -62,8 +62,6 @@ fun StUiLargeTopAppBar(
     )
 }
 
-
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ScrollContentTest(innerPadding: PaddingValues, scrollBehavior: TopAppBarScrollBehavior) {

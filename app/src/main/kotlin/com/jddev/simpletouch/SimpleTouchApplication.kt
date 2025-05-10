@@ -16,5 +16,7 @@ class SimpleTouchApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        appTree.setLogTag("SimpleTouch")
     }
 }
