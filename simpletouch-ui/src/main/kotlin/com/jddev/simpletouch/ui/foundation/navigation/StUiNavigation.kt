@@ -1,4 +1,4 @@
-package com.jddev.simpletouch.ui.navigation
+package com.jddev.simpletouch.ui.foundation.navigation
 
 import androidx.navigation.NavHostController
 

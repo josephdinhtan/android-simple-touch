@@ -1,4 +1,4 @@
-package com.jddev.simpletouch.ui.navigation
+package com.jddev.simpletouch.ui.foundation.navigation
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
@@ -8,13 +8,17 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Surface
@@ -34,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 private fun Color.Companion.orange() = Color(0xFFF18E00)
@@ -45,7 +50,9 @@ fun StUiBottomNavigation(
     navigationItems: StNavigationScope.() -> Unit,
     containerColor: Color = MaterialTheme.colorScheme.background,
     contentColor: Color = MaterialTheme.colorScheme.onBackground,
-    content: @Composable () -> Unit = {}
+    windowInsets: WindowInsets = NavigationBarDefaults.windowInsets,
+    navigationBarHeight: Dp = 80.dp,
+    content: @Composable () -> Unit = {},
 ) {
     val scope by rememberStStateOfItems(navigationItems)
     Surface(modifier = modifier, color = containerColor, contentColor = contentColor) {
@@ -54,9 +61,11 @@ fun StUiBottomNavigation(
             HorizontalDivider()
             Row(
                 modifier = Modifier
-                    .height(54.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly,
+                    .windowInsetsPadding(windowInsets)
+                    .fillMaxWidth()
+                    .defaultMinSize(minHeight = navigationBarHeight)
+                    .selectableGroup(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 scope.itemList.forEach {
@@ -92,7 +101,7 @@ private fun RowScope.StNavigationBarItem(
             unselectedIconColor = Color.gray(),
             unselectedTextColor = Color.gray(),
         ),
-    interactionSource: MutableInteractionSource? = null
+    interactionSource: MutableInteractionSource? = null,
 ) {
     var itemWidth by remember { mutableIntStateOf(0) }
     Box(
@@ -140,13 +149,13 @@ sealed interface StNavigationScope {
         alwaysShowLabel: Boolean = true,
         badge: (@Composable () -> Unit)? = null,
         colors: NavigationBarItemColors? = null,
-        interactionSource: MutableInteractionSource? = null
+        interactionSource: MutableInteractionSource? = null,
     )
 }
 
 @Composable
 private fun rememberStStateOfItems(
-    content: StNavigationScope.() -> Unit
+    content: StNavigationScope.() -> Unit,
 ): State<StNavigationItemProvider> {
     val latestContent = rememberUpdatedState(content)
     return remember { derivedStateOf { NavigationSuiteScopeImpl().apply(latestContent.value) } }
@@ -164,7 +173,7 @@ private class NavigationSuiteScopeImpl : StNavigationScope, StNavigationItemProv
         alwaysShowLabel: Boolean,
         badge: (@Composable () -> Unit)?,
         colors: NavigationBarItemColors?,
-        interactionSource: MutableInteractionSource?
+        interactionSource: MutableInteractionSource?,
     ) {
         itemList.add(
             StNavigationItem(
@@ -210,5 +219,5 @@ private class StNavigationItem(
     val alwaysShowLabel: Boolean,
     val badge: (@Composable () -> Unit)?,
     val colors: NavigationBarItemColors?,
-    val interactionSource: MutableInteractionSource?
+    val interactionSource: MutableInteractionSource?,
 )

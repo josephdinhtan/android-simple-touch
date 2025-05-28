@@ -114,7 +114,6 @@ private fun SettingsScreen(
     StUiEmptyDialog(
         showDialog = showUiStyleDialog,
         onDismissRequest = { showUiStyleDialog = false },
-        onSelected = {}
     ) {
         Column(Modifier.padding(16.dp)) {
 

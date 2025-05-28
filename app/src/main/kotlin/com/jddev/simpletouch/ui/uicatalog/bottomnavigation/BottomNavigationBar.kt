@@ -1,0 +1,53 @@
+package com.jddev.simpletouch.ui.uicatalog.bottomnavigation
+
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material3.NavigationBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation.NavHostController
+import com.jddev.simpletouch.ui.foundation.navigation.bottomnavbar.BottomNavItem
+import com.jddev.simpletouch.ui.foundation.navigation.bottomnavbar.NavIcon
+import com.jddev.simpletouch.ui.foundation.navigation.bottomnavbar.StUiBottomNavBar
+
+enum class BottomNavTab(
+    val route: String,
+    val label: String,
+    val filledIcon: ImageVector,
+    val outlineIcon: ImageVector,
+) {
+    Catalog("nav_catalog", "Catalog", Icons.Default.Home, Icons.Outlined.Home),
+    Search("nav_search", "Search", Icons.Filled.Search, Icons.Outlined.Search),
+    Favorites("nav_favorites", "Favorites", Icons.Filled.Favorite, Icons.Outlined.FavoriteBorder),
+    Profile("nav_profile", "Profile", Icons.Filled.Person, Icons.Outlined.Person)
+}
+
+@Composable
+fun BottomNavigationBar(
+    navController: NavHostController,
+    windowInsets: WindowInsets? = NavigationBarDefaults.windowInsets,
+    alwaysShowLabel: Boolean = true,
+    hasLabel: Boolean = true,
+) {
+    StUiBottomNavBar(
+        navController = navController,
+        windowInsets = windowInsets,
+        alwaysShowLabel = alwaysShowLabel,
+        items = BottomNavTab.entries.map {
+            BottomNavItem(
+                route = it.route,
+                label = if(hasLabel) it.label else null,
+                selectedIcon = NavIcon.Vector(it.filledIcon),
+                unselectedIcon = NavIcon.Vector(it.outlineIcon),
+            )
+        }
+    )
+}

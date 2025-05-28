@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.jddev.simpletouch.ui.settings.AppSettings
-import com.jddev.simpletouch.ui.navigation.navigateSingleTop
+import com.jddev.simpletouch.ui.foundation.navigation.navigateSingleTop
 import com.jddev.simpletouch.ui.utils.sharedViewModel
 
 fun NavGraphBuilder.shareViewModelNavGraph(

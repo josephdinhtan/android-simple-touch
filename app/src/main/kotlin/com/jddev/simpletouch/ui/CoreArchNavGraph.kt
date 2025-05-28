@@ -15,8 +15,8 @@ import com.jddev.simpletouch.ui.samepleui.sampleUiNavGraph
 import com.jddev.simpletouch.ui.settings.settingsNavGraph
 import com.jddev.simpletouch.ui.uicatalog.uiCatalogNavGraph
 import com.jddev.simpletouch.ui.foundation.StUiDoubleBackHandler
-import com.jddev.simpletouch.ui.navigation.StUiNavHost
-import com.jddev.simpletouch.ui.navigation.navigateSingleTop
+import com.jddev.simpletouch.ui.foundation.navigation.StUiNavHost
+import com.jddev.simpletouch.ui.foundation.navigation.navigateSingleTop
 
 @Composable
 fun CoreArchNavGraph(

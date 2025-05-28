@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.jddev.simpletouch.ui.settings.AppSettings
-import com.jddev.simpletouch.ui.uicatalog.bottomnavigation.BottomNavScreen
+import com.jddev.simpletouch.ui.uicatalog.bottomnavigation.BottomNavigationScreen
 import com.jddev.simpletouch.ui.uicatalog.button.BasicButtonsScreen
 import com.jddev.simpletouch.ui.uicatalog.dialog.BasicDialogScreen
 import com.jddev.simpletouch.ui.uicatalog.pager.HorizontalPagerDemo
@@ -60,7 +60,7 @@ fun NavGraphBuilder.uiCatalogNavGraph(
         composable(
             route = "catalog_nav_bottom_nav_route",
         ) {
-            BottomNavScreen(
+            BottomNavigationScreen(
                 onBack = { navController.popBackStack() },
             )
         }

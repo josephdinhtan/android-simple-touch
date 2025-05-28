@@ -27,21 +27,36 @@ fun StUiTopAppBar(
     actions: @Composable RowScope.() -> Unit = {},
     onBack: (() -> Unit)? = null,
 ) {
-    TopAppBar(
+    CustomizedTopAppBar(
+        title = title,
         modifier = modifier,
-        scrollBehavior = scrollBehavior,
-        colors = colors,
-        title = { Text(text = title) },
-        navigationIcon = {
-            onBack?.let {
-                IconButton(onClick = it) {
-                    Icon(
-                        imageVector = StUiIcons.ArrowBack,
-                        contentDescription = "Back",
-                    )
-                }
-            }
-        },
+//        scrollBehavior = scrollBehavior,
+        navigationIcon = onBack?.let { { NavigateBack(onBack) } } ?: {},
+        colors = defaultTopAppBarColors().copy(
+            containerColor = colors.containerColor,
+            scrolledContainerColor = colors.scrolledContainerColor,
+            titleContentColor = colors.titleContentColor,
+            navigationIconContentColor = colors.navigationIconContentColor,
+            actionIconContentColor = colors.actionIconContentColor,
+        ),
         actions = actions,
     )
+//
+//    TopAppBar(
+//        modifier = modifier,
+//        scrollBehavior = scrollBehavior,
+//        colors = colors,
+//        title = { Text(text = title) },
+//        navigationIcon = {
+//            onBack?.let {
+//                IconButton(onClick = it) {
+//                    Icon(
+//                        imageVector = StUiIcons.ArrowBack,
+//                        contentDescription = "Back",
+//                    )
+//                }
+//            }
+//        },
+//        actions = actions,
+//    )
 }

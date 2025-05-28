@@ -10,18 +10,16 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.jddev.simpletouch.ui.icon.StUiIcons
 import com.jddev.simpletouch.ui.utils.StUiPreview
 import com.jddev.simpletouch.ui.utils.StUiPreviewWrapper
 
@@ -31,44 +29,40 @@ fun StUiLargeTopAppBar(
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = stUiLargeTopAppbarScrollBehavior(),
     title: String,
+    colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(
+        containerColor = MaterialTheme.colorScheme.background,
+        scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer
+    ),
     actions: @Composable RowScope.() -> Unit = {},
     onBack: (() -> Unit)? = null,
 ) {
-    LargeTopAppBar(
+    CustomizedLargeTopAppBar(
+        title = title,
         modifier = modifier,
         scrollBehavior = scrollBehavior,
-        colors = TopAppBarDefaults.largeTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.background,
-            scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer
+        navigationIcon = onBack?.let { { NavigateBack(onBack) } } ?: {},
+        colors = defaultTopAppBarColors().copy(
+            containerColor = colors.containerColor,
+            scrolledContainerColor = colors.scrolledContainerColor,
+            titleContentColor = colors.titleContentColor,
+            navigationIconContentColor = colors.navigationIconContentColor,
+            actionIconContentColor = colors.actionIconContentColor,
         ),
-        title = {
-            Text(
-                text = title,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-        },
-        navigationIcon = {
-            onBack?.let {
-                IconButton(onClick = it) {
-                    Icon(
-                        imageVector = StUiIcons.ArrowBack,
-                        contentDescription = "Back",
-                    )
-                }
-            }
-        },
         actions = actions,
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ScrollContentTest(innerPadding: PaddingValues, scrollBehavior: TopAppBarScrollBehavior) {
+private fun ScrollContentTest(
+    innerPadding: PaddingValues,
+    scrollBehavior: TopAppBarScrollBehavior,
+) {
     val range = 1..100
     LazyColumn(
         modifier = Modifier
-            .fillMaxSize().nestedScroll(scrollBehavior.nestedScrollConnection),
+            .fillMaxSize()
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
         contentPadding = innerPadding,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {

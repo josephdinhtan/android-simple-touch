@@ -8,7 +8,7 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.jddev.simpletouch.ui.settings.AppSettings
-import com.jddev.simpletouch.ui.navigation.navigateSingleTop
+import com.jddev.simpletouch.ui.foundation.navigation.navigateSingleTop
 
 fun NavGraphBuilder.notificationUiNavGraph(
     route: String,
